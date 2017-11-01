@@ -1,0 +1,13 @@
+{
+    "name": "sjcarchive/storedd",
+    "description": "SJC Archive Based ON Storedd DB",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Kevin Noseworthy",
+            "email": "kevin.noseworthy@stjoseph.com"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {}
+}
