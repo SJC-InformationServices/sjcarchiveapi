@@ -9,5 +9,14 @@
         }
     ],
     "minimum-stability": "alpha",
-    "require": {}
+    "require": {
+        "react/event-loop": "^0.4.3",
+        "react/http": "^0.7.4"
+    },
+    "autoload": {
+        "psr-4":{
+            "storedd\\":"src/"
+        }
+    }
+
 }
