@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4":{
-            "storedd\\":"src/"
+            "storedd":"src/"
         }
     },
     "require-dev": {

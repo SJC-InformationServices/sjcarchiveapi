@@ -35,19 +35,17 @@ CREATE TABLE `entdef_entdef` (
 
 CREATE TABLE `ent` (
   `id` binary(16) NOT NULL,
-  `id_text` varchar(36) COLLATE utf8mb4_unicode_ci GENERATED ALWAYS AS (insert(insert(insert(insert(hex(`id_bin`),9,0,'-'),14,0,'-'),19,0,'-'),24,0,'-')) VIRTUAL,
+  `id_text` varchar(36) COLLATE utf8mb4_unicode_ci GENERATED ALWAYS AS (insert(insert(insert(insert(hex(`id`),9,0,'-'),14,0,'-'),19,0,'-'),24,0,'-')) VIRTUAL,
   `entdef_id` int(100) NOT NULL,
   `createdon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `entkey` binary(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `ent_entdef` FOREIGN KEY (`entdef_id`) REFERENCES `entdef` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29824 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 alter table `ent_att` add  constraint `entdef_attdef` Foreign Key (`entdef_id`) references `entdef` (`id`);
-alter table `ent_att` add  constraint `attdef_entdef` Foreign Key (`attdef_id`) references `attdef` (`id`);
-
+alter table `ent_att` add  constraint `attdef_entdef` Foreign Key (`attdef_id`) references `a
 
 
 
