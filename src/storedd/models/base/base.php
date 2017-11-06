@@ -1,6 +1,7 @@
 <?php
 namespace storedd\models;
-class base{
+use storedd\modules\db;
+class base extends RedBean_SimpleModel{
 
 }
 ?>
