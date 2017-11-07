@@ -2,3 +2,4 @@ composer.json
 vendor
 abarchive
 .vscode
+lib
