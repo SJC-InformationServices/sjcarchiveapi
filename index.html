@@ -5,12 +5,12 @@
 		<meta charset="utf-8">
 		
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.16/af-2.2.2/b-1.4.2/b-colvis-1.4.2/b-html5-1.4.2/cr-1.4.1/fc-3.2.3/fh-3.1.3/kt-2.3.2/r-2.2.0/rg-1.0.2/rr-1.2.3/sc-1.4.3/sl-1.2.3/datatables.min.css"/>	   
-<link rel="stylesheet" type="text/css" href="lib/Editor-1.6.5/css/editor.boostrap4.min.css">
-<link rel="stylesheet" href="lib/style/archive.css">
+<link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/sjcarchivefiles-dev/lib/Editor-1.6.5/css/editor.bootstrap4.min.css">
+<link rel="stylesheet" href="https://s3.amazonaws.com/sjcarchivefiles-dev/lib/style/archive.css">
 
 <script src="https://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.16/af-2.2.2/b-1.4.2/b-colvis-1.4.2/b-html5-1.4.2/cr-1.4.1/fc-3.2.3/fh-3.1.3/kt-2.3.2/r-2.2.0/rg-1.0.2/rr-1.2.3/sc-1.4.3/sl-1.2.3/datatables.min.js"></script>
-<scriipt type="text/javascript" src="lib/Editor-1.6.5/css/editor.bootstrap4.min.js"></scriipt>
+<scriipt type="text/javascript" src="https://s3.amazonaws.com/sjcarchivefiles-dev/lib/Editor-1.6.5/js/editor.bootstrap4.min.js"></scriipt>
 
 	</head>
 	<body class="yui3-skin-sam yui-skin-sam">
@@ -38,14 +38,13 @@
 		YUI.GlobalConfig = {
 	 groups: {
 	  yui2: {
-	   base: 'lib/yui2in3/',
+	   base: 'https://s3.amazonaws.com/sjcarchivefiles-dev/lib/yui2in3/',
 	   patterns: {
 	    'yui2-': {
 	     configFn: function(me) {
 	      if (/-skin|reset|fonts|grids|base/.test(me.name)) {
 	       me.type = 'css';
 	       me.path = me.path.replace(/\.js/, '.css');
-	       me.path = me.path.replace(/\/yui2-skin/, '/assets/skins/sam/yui2-skin');
 	      }
 	     }
 	    }
