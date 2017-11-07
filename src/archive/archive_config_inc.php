@@ -14,11 +14,11 @@ ini_set('display_errors', 'On');
 spl_autoload_register("archiveloader");*/
 
 $archiveconfig = array(
-	"archivedbserver"=>'sjcarchiveawsdb.stjosephcontent.com',
-	"archivedbuser"=>'abEasyCatalog',
-	"archivedbpass"=>'15bentonroad!',
-	"archivedb"=>'alphabrodermaster',
-	"archiveUrl"=>'http://localhost/archive/',
+	"archivedbserver"=>'sjc-content-archive-dev.cpi3jpipzm32.us-east-1.rds.amazonaws.com',
+	"archivedbuser"=>'sjcArchiveWebApps',
+	"archivedbpass"=>'15BentonRoad!',
+	"archivedb"=>'sjccontentarchive',
+	"archiveUrl"=>'https://sjccontent-archive-dev.us-east-1.elasticbeanstalk.com/src/archive',
 	"ApiLogPath"=>"/archive_library/archive_logging/archive_logs/api_logs",
 	"SysLogPath"=>"/archive_library/archive_logging/archive_logs/sys_logs",
 	"archive_user"=>isset($_POST['email'])?$_POST['email'] : NULL,

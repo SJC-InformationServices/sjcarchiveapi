@@ -10,14 +10,12 @@
     ],
     "minimum-stability": "alpha",
     "require": {
-        "react/event-loop": "^0.4.3",
-        "react/http": "^0.7.4",
         "aws/aws-sdk-php": "^3.36",
         "monolog/monolog": "^1.23"
     },
     "autoload": {
         "psr-4":{
-            "storedd":"src/"
+            "storedd/":"src/"
         }
     },
     "require-dev": {
