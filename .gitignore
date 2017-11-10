@@ -1,5 +1,6 @@
 composer.json
 vendor
-abarchive
+src/archive
+src/storeme
 .vscode
 lib

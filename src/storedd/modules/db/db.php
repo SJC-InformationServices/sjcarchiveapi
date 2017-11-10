@@ -25,13 +25,7 @@ class db{
         $this->pass = $pass;
         $this->db = $db;
         $charset = $charset;
-        $dbconn = new mysqli($this->host, $this->user, $this->pass,$this->db);
-        $dbconn->select_db($this->db);
-        $dbconn->set_charset($this->charset);
-        $dbconn->autocommit(true);
-        $dbconn->query("SET SESSION group_concat_max_len=100000");
-        $this->conn = $dbconn;
-        R::setup("mysql:host=$host;dbname=$db;'$user','$pass'");
+        
      }
     }
 }
