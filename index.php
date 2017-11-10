@@ -1,3 +1,6 @@
 <?php
-echo "hello world";
+require "vendor/redbean/rb.php";
+require "storedd_cfg.php";
+
+
 ?>
