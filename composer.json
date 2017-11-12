@@ -8,12 +8,14 @@
             "email": "kevin.noseworthy@stjoseph.com"
         }
     ],
-    "minimum-stability": "alpha",
     "autoload": {
         "psr-4":{
-            "storedd/":"src/",
-            "archive/":"archive/"
+            "storedd\\":"src/storedd/",
+            "archive\\":"src/archive/",
+            "storeme\\":"src/storeme/"
         }
+    },
+    "require": {
+        "slim/slim": "^3.9"
     }
 }
-
