@@ -1,6 +1,5 @@
 composer.json
 vendor
-src/archive
-src/storeme
 .vscode
 lib
+node_modules
