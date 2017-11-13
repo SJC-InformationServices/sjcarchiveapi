@@ -6,17 +6,16 @@ $paths=explode("/",$path);
 $basepath = $paths[0];
 switch($basepath)
 {
-    case 'em':
-    
+    case 'em':    
     $api = new storedd\modules\manager($path,null);
+    break;
     
-    break;
     case 'attrib':
-    $api = new storedd\modules\attribute($path,null);
+    $api = new storedd\modules\attributes($path,null);
     break;
+
     case 'api':
     $api = new storedd\modules\entities($path,null);
-    
     break;
     
     default:
@@ -24,6 +23,5 @@ switch($basepath)
     die;
     break;
 }
-
 echo $api->processAPI();
 ?>

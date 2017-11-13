@@ -44,7 +44,10 @@ CREATE TABLE `ent` (
   CONSTRAINT `ent_entdef` FOREIGN KEY (`entdef_id`) REFERENCES `entdef` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-alter table `ent_att` add  constraint `entdef_attdef` Foreign Key (`entdef_id`) references `entdef` (`id`);
+alter table `ent_att` add  constraint `entdef_attdef` 
+Foreign Key (`entdef_id`) references `entdef` (`id`);
+
+
 
 
 

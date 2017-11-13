@@ -2,32 +2,30 @@
 
 namespace storedd\modules;
 
-class manager extends base_api
+class attributes extends base_api
 {
     public function __construct($request) {
         parent::__construct($request); 
         
     }
-    public function em(){
+    public function attrib(){
         switch($this->method)
 		{
             case 'GET':
             if(!is_null($this->verb) && $this->verb != ''){
                 if(is_numeric($this->verb)){
-                    $b = \R::load('entitydefinition',$this->verb);
-                }else{
-                    $b = \R::findOne('entitydefinition','`name` = ? ',[$this->verb]);
+                    $b = \R::load('attributedefinition',$this->verb);
                 }
             }else{
-                   $b = \R::findAll('entitydefinition','`name` <> ?', ['']);
+                   $b = \R::findAll('attributedefinition','`name` <> ?', ['']);
             }                                
 			break;
             case 'POST':
             if(!is_null($this->verb) && $this->verb != ''){
                 if(is_numeric($this->verb)){
-                    $b = \R::load('entitydefinition',$this->verb);
+                    $b = \R::load('attributedefinition',$this->verb);
                 }else{
-                    $b = \R::findOne('entitydefinition','`name` = ? ',[$this->verb]);
+                    $b = \R::findOne('attributedefinition','`name` = ? ',[$this->verb]);
                 }
                 foreach($this->file as $k=>$v)
                 {
@@ -38,19 +36,18 @@ class manager extends base_api
                     $b->$k=$v;   
                  break;
                  case 'parents';
-                 
+                 $plist = [];
                     foreach($rec['parents'] as $p){
-                        $pb = \R::findOne('entitydefinition','`name` = ? ',[$p]);
-                        $pb->sharedEntitydefinitionList[]=$b;
-                        \R::store($pb);
+                        $pb = \R::findOne('attributedefinition','`name` = ? ',[$p]);
+                        array_push($plist,$pb);
                     }
-                    
+                    $b->ownattributedefinitionList[]=$pb;
                  break;
                  case 'children':
                  if(isset($rec['children'])){
                     foreach($rec['children'] as $c){
-                        $cb = \R::findOne('entitydefinition','`name` = ? ',[$c]);
-                        $b->sharedEntitydefinitionList[]=[$cb];
+                        $cb = \R::findOne('attributedefinition','`name` = ? ',[$c]);
+                        $b->sharedattributedefinitionList[]=$cb;
                     }
                 }
                  break;
@@ -65,24 +62,21 @@ class manager extends base_api
             
 			break;
             case 'PUT':				
-                $b = \R::dispense('entitydefinition');
+                $b = \R::dispense('attributedefinition');
                 $rec = $this->file;
                 $b->name=$rec['name'];
                 $b->label=strtoupper(preg_replace('/[^a-z0-9]+\Z/i', '',$rec['name']));
                 $options = isset($rec['options'])?\json_encode($rec['options']):null;
                 if(isset($rec['parents'])){
-                    $parents = [];
                     foreach($rec['parents'] as $p){
-                        $pb = \R::findOne('entitydefinition','`name` = ? ',[$p]);
-                        array_push($parents,$pb);
+                        $pb = \R::findOne('attributedefinition','`name` = ? ',[$p]);
+                        $b->ownattributedefinitionList[]=$pb;
                     }
-                    var_dump($parents);
-                    $b->ownEntitydefinitionList[]=$parents;
                 }
                 if(isset($rec['children'])){
                     foreach($rec['children'] as $c){
-                        $cb = \R::findOne('entitydefinition','`name` = ? ',[$c]);
-                        $cb->sharedEntitydefinition[]=$b;
+                        $cb = \R::findOne('attributedefinition','`name` = ? ',[$c]);
+                        $b->sharedattributedefinitionList[]=$cb;
                     }
                 }
                 \R::store($b);
@@ -90,9 +84,9 @@ class manager extends base_api
 			case 'DELETE':
             if(!is_null($this->verb) && $this->verb != ''){
                 if(is_numeric($this->verb)){
-                    $b = \R::load('entitydefinition',$this->verb);
+                    $b = \R::load('attributedefinition',$this->verb);
                 }else{
-                    $b = \R::findOne('entitydefinition','`name` = ? ',[$this->verb]);
+                    $b = \R::findOne('attributedefinition','`name` = ? ',[$this->verb]);
                 }
                 \R::trash($b);
 				$b=null;
