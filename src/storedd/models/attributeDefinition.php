@@ -1,6 +1,7 @@
 <?php
 namespace storedd\models;
-class attributeDefinition extends \RedBean_SimpleModel{
+include dirname(__FILE__)."base.php";
+class attributeDefinition extends base{
     
 }
 ?>

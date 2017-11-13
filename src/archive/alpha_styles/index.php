@@ -9,7 +9,6 @@ $path = substr($path,strpos($path,$name));
 try{
 	$API = new archive($path, null,$archiveconfig);
     echo $API->processAPI();
-	
 } 
 catch (Exception $e){
 	  echo json_encode(Array('error' => $e->getMessage()));
