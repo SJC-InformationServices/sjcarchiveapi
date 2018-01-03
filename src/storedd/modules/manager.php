@@ -5,8 +5,7 @@ namespace storedd\modules;
 class manager extends base_api
 {
     public function __construct($request) {
-        parent::__construct($request); 
-        
+        parent::__construct($request);         
     }
     public function em(){
         switch($this->method)
@@ -14,45 +13,49 @@ class manager extends base_api
             case 'GET':
             if(!is_null($this->verb) && $this->verb != ''){
                 if(is_numeric($this->verb)){
-                    $b = \R::load('entitydefinition',$this->verb);
+                    $b = \R::load('entdef',$this->verb);
                 }else{
-                    $b = \R::findOne('entitydefinition','`name` = ? ',[$this->verb]);
+                    $b = \R::findOne('entdef','`name` = ? ',[$this->verb]);
                 }
             }else{
-                   $b = \R::findAll('entitydefinition','`name` <> ?', ['']);
-            }                                
+                   $b = \R::findAll('entdef','`name` <> ?', ['']);
+            }
+            $r = \R::exportAll($b,TRUE);
+            foreach($r as $k=>$v){
+                $r[$k]['children'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`child_entdef` and `entdef_entdef`.`parent_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');
+                $r[$k]['parents'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`parent_entdef` and `entdef_entdef`.`child_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');
+            }
+            return $r;
 			break;
             case 'POST':
             if(!is_null($this->verb) && $this->verb != ''){
                 if(is_numeric($this->verb)){
-                    $b = \R::load('entitydefinition',$this->verb);
+                    $b = \R::load('entdef',$this->verb);
                 }else{
-                    $b = \R::findOne('entitydefinition','`name` = ? ',[$this->verb]);
+                    $b = \R::findOne('entdef','`name` = ? ',[$this->verb]);
                 }
                 foreach($this->file as $k=>$v)
                 {
                 switch($k){
-
+                
                 case "name":
                     $b->label= strtoupper(preg_replace('/[^a-z0-9]+\Z/i', '',$v));
                     $b->$k=$v;   
                  break;
                  case 'parents';
-                 
                     foreach($rec['parents'] as $p){
-                        $pb = \R::findOne('entitydefinition','`name` = ? ',[$p]);
-                        $pb->sharedEntitydefinitionList[]=$b;
+                        $pb = \R::findOne('entdef','`name` = ? ',[$p]);
+                        $pb->sharedentdefList[]=[$b];
                         \R::store($pb);
-                    }
-                    
+                    }                    
                  break;
                  case 'children':
-                 if(isset($rec['children'])){
+                 
                     foreach($rec['children'] as $c){
-                        $cb = \R::findOne('entitydefinition','`name` = ? ',[$c]);
-                        $b->sharedEntitydefinitionList[]=[$cb];
+                        $cb = \R::findOne('entdef','`name` = ? ',[$c]);
+                        $b->sharedentdefList[]=[$cb];
                     }
-                }
+                
                  break;
                 default :
                     $b->$k=$v;   
@@ -65,34 +68,39 @@ class manager extends base_api
             
 			break;
             case 'PUT':				
-                $b = \R::dispense('entitydefinition');
+                $b = \R::dispense('entdef');
                 $rec = $this->file;
                 $b->name=$rec['name'];
                 $b->label=strtoupper(preg_replace('/[^a-z0-9]+\Z/i', '',$rec['name']));
                 $options = isset($rec['options'])?\json_encode($rec['options']):null;
+                $id = \R::store($b);
                 if(isset($rec['parents'])){
-                    $parents = [];
+                    
                     foreach($rec['parents'] as $p){
-                        $pb = \R::findOne('entitydefinition','`name` = ? ',[$p]);
-                        array_push($parents,$pb);
+                        $pb = \R::findOne('entdef','`name` = ? ',[$p]);
+                        $relate = \R::dispense('entdef_entdef');
+                        $relate->parent_entdef = $pb->id;
+                        $relate->child_entdef =$id;
+                        \R::store($relate);
                     }
-                    var_dump($parents);
-                    $b->ownEntitydefinitionList[]=$parents;
+
                 }
                 if(isset($rec['children'])){
                     foreach($rec['children'] as $c){
-                        $cb = \R::findOne('entitydefinition','`name` = ? ',[$c]);
-                        $cb->sharedEntitydefinition[]=$b;
+                        $cb = \R::findOne('entdef','`name` = ? ',[$c]);
+                        $relate = \R::dispense('entdef_entdef');
+                        $relate->parent_entdef =$b->id; 
+                        $relate->child_entdef = $cb->id;
+                        \R::store($relate);
                     }
                 }
-                \R::store($b);
 			break;
 			case 'DELETE':
             if(!is_null($this->verb) && $this->verb != ''){
                 if(is_numeric($this->verb)){
-                    $b = \R::load('entitydefinition',$this->verb);
+                    $b = \R::load('entdef',$this->verb);
                 }else{
-                    $b = \R::findOne('entitydefinition','`name` = ? ',[$this->verb]);
+                    $b = \R::findOne('entdef','`name` = ? ',[$this->verb]);
                 }
                 \R::trash($b);
 				$b=null;

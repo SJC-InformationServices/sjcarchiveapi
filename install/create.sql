@@ -44,9 +44,21 @@ CREATE TABLE `ent` (
   CONSTRAINT `ent_entdef` FOREIGN KEY (`entdef_id`) REFERENCES `entdef` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-alter table `ent_att` add  constraint `entdef_attdef` 
-Foreign Key (`entdef_id`) references `entdef` (`id`);
+CREATE TABLE `entdef_attribdef` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `entdef` int(10) unsigned NOT NULL,
+  `attribdef` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique` (`entdef`,`attribdef`),
+  KEY `entdef` (`entdef`),
+  KEY `attribdef` (`attribdef`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+alter table `entdef_entdef` add  constraint `entdef_children` Foreign Key (`child_entdef`) references `entdef` (`id`);
+alter table `entdef_entdef` add  constraint `entdef_parent` Foreign Key (`parent_entdef`) references `entdef` (`id`);
+
+alter table `entdef_attribdef` add  constraint `fk_entdef_attribdef` Foreign Key (`entdef_id`) references `entdef` (`id`);
+alter table `entdef_attribdef` add  constraint `fk_attribdef_entdef` Foreign Key (`attribdef_id`) references `attribdef` (`id`);
 
 
 

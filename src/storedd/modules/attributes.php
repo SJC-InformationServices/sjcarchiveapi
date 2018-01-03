@@ -66,19 +66,8 @@ class attributes extends base_api
                 $rec = $this->file;
                 $b->name=$rec['name'];
                 $b->label=strtoupper(preg_replace('/[^a-z0-9]+\Z/i', '',$rec['name']));
-                $options = isset($rec['options'])?\json_encode($rec['options']):null;
-                if(isset($rec['parents'])){
-                    foreach($rec['parents'] as $p){
-                        $pb = \R::findOne('attributedefinition','`name` = ? ',[$p]);
-                        $b->ownattributedefinitionList[]=$pb;
-                    }
-                }
-                if(isset($rec['children'])){
-                    foreach($rec['children'] as $c){
-                        $cb = \R::findOne('attributedefinition','`name` = ? ',[$c]);
-                        $b->sharedattributedefinitionList[]=$cb;
-                    }
-                }
+                
+
                 \R::store($b);
 			break;
 			case 'DELETE':

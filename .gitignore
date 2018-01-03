@@ -3,3 +3,6 @@ vendor
 .vscode
 lib
 node_modules
+powershell
+index.html
+index1.html
