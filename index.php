@@ -4,9 +4,10 @@ require "storedd_cfg.php";
 $path = ltrim($_SERVER['REQUEST_URI'], '/');    // Trim leading slash(es)
 $paths=explode("/",$path);
 $basepath = $paths[0];
+try{
 switch($basepath)
 {
-    case 'em':    
+    case 'types':    
     $api = new storedd\modules\manager($path,null);
     break;
     
@@ -15,6 +16,7 @@ switch($basepath)
     break;
 
     case 'api':
+    R::freeze( true );
     $api = new storedd\modules\entities($path,null);
     break;
     
@@ -24,4 +26,8 @@ switch($basepath)
     break;
 }
 echo $api->processAPI();
+}catch(Exception $e){
+    //TODO: Log Error
+    header("HTTP/1.0 500 Internal Server Error - Fails to Process Request"); 
+}
 ?>

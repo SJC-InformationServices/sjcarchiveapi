@@ -60,7 +60,9 @@ alter table `entdef_entdef` add  constraint `entdef_parent` Foreign Key (`parent
 alter table `entdef_attribdef` add  constraint `fk_entdef_attribdef` Foreign Key (`entdef_id`) references `entdef` (`id`);
 alter table `entdef_attribdef` add  constraint `fk_attribdef_entdef` Foreign Key (`attribdef_id`) references `attribdef` (`id`);
 
-
+rename table `sdm`.`sdm_pim` to `sdm_old`.`sdm_pim`;
+rename table `sdm`.`sdm_pim_assets` to `sdm_old`.`sdm_pim_assets`;
+rename table `sdm`.`sdm_pim_to_assets` to `sdm_old`.`sdm_pim_to_assets`;
 
 
 

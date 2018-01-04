@@ -1,7 +1,7 @@
 <?php
 
 namespace storedd\modules;
-
+use \storedd\models\entdef;
 class manager extends base_api
 {
     public function __construct($request) {
