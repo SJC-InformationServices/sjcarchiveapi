@@ -1,7 +1,7 @@
 <?php
 
 
-require_once "vendor/redbean/rb.php";
+require_once "src/redbean/rb.php";
 require_once "vendor/autoload.php";
 
 $host = "sjc-content-archive-dev.cpi3jpipzm32.us-east-1.rds.amazonaws.com";

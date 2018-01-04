@@ -1,9 +1,8 @@
 composer.json
 vendor
 .vscode
-lib
-node_modules
-powershell
+lib/
+powershell/
 index.html
-index1.html
+index.1.html
 archive.zip
