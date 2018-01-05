@@ -3,8 +3,10 @@ Set-DefaultAWSRegion -Region us-east-1
 
 $date = get-date -format yyyy-MM-dd-HHmmss
 $datestr = $date.ToString()
-$file = "deploy\archive-"+$datestr+".zip"
-$cmd = git archive -v -o $file --format=zip HEAD
+$name = "archive-"+$datestr+".zip"
+$file = "deploy\"+$name
+git archive -v -o $file --format=zip HEAD
 Write-S3Object -BucketName sjcarchivefiles-dev -File $file
-New-EBApplicationVersion -ApplicationName SJC_Archive -VersionLabel $file -SourceBuildInformation_SourceType Zip -SourceBuildInformation_SourceRepository S3 -SourceBuildInformation_SourceLocation sjcarchivefiles-dev/$file -Process 1
-#Update-EbApplicationVersion -ApplicationName SJC_Archive -VersionLabel $file
+aws elasticbeanstalk create-application-version --application-name "SJC_Archive" --version-label $name --description sjc_archive_dev --source-bundle S3Bucket="sjcarchivefiles-dev",S3Key=$name
+Update-EBEnvironment -ApplicationName "SJC_Archive" -EnvironmentName "dev-sjcarchive" -VersionLabel $name 
+#New-EBApplicationVersion -ApplicationName SJC_Archive -VersionLabel $name -SourceBuildInformation_SourceType Zip -SourceBuildInformation_SourceRepository S3 -SourceBuildInformation_SourceLocation sjcarchivefiles-dev/$name

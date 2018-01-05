@@ -8,7 +8,6 @@ try{
 switch($basepath)
 {
     case 'em':    
-    echo "wtf";
     $api = new storedd\modules\manager($path,null);
     break;
     
