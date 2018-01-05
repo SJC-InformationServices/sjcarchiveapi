@@ -1,6 +1,6 @@
 <?php
 require "storedd_cfg.php";
-
+$lifeCycle = '';
 $path = ltrim($_SERVER['REQUEST_URI'], '/');    // Trim leading slash(es)
 $paths=explode("/",$path);
 $basepath = $paths[0];
