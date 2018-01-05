@@ -7,7 +7,8 @@ $basepath = $paths[0];
 try{
 switch($basepath)
 {
-    case 'types':    
+    case 'em':    
+    echo "wtf";
     $api = new storedd\modules\manager($path,null);
     break;
     

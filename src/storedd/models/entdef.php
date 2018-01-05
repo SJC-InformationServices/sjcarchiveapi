@@ -10,7 +10,9 @@ class entdef extends RedBean_SimpleModel
     {
        echo "STUFF FUBARED";
     }
-    public function update(){}
+    public function update(){
+        echo "Stuff again";
+    }
 
 }
 ?>
