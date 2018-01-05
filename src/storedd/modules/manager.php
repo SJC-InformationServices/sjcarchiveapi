@@ -1,6 +1,6 @@
 <?php
-
 namespace storedd\modules;
+include_once "../models/entdef.php";
 use storedd\models\entdef;
 class manager extends base_api
 {
