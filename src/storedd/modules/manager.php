@@ -1,7 +1,7 @@
 <?php
 namespace storedd\models
 {
-class entdef extends RedBean_SimpleModel
+class entdef extends \RedBean_SimpleModel
 {   
     public function open() {
         global $lifeCycle;
