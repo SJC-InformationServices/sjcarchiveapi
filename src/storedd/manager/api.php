@@ -111,5 +111,5 @@ class manager extends base_api
         return $r;
     }
 }
-}
+
 ?>
