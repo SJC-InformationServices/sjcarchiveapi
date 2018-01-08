@@ -18,7 +18,7 @@ foreach($entties as $e){
     $e->updatedon = date("Y-m-d H:i:s");
     $e->sharedAttribdefList[]  = $attribdef;
 }
-
+\R::storeAll($entties);
 
 
 
