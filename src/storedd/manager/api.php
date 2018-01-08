@@ -1,7 +1,5 @@
 <?php
 
-namespace storedd\modules{
-
 class manager extends base_api
 {
     public function __construct($request) {
