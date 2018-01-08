@@ -42,7 +42,9 @@ class manager extends base_api
             }else{
                    $b = \R::findAll('entdef','`name` <> ?', ['']);
             }
-            
+            $b->traverse('entdef',function($parent){
+                echo $parent->name. PHP_EOL;
+            });
             $r = \R::exportAll($b,TRUE);
             foreach($r as $k=>$v){
                 $r[$k]['children'] = $r[$k]["ownEntdef_entdef"];
