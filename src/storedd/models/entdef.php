@@ -1,5 +1,5 @@
 <?php
-namespace \storedd\models;
+namespace storedd\models;
 
 class entdef extends \RedBean_SimpleModel
 {   
