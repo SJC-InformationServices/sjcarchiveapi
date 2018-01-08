@@ -8,8 +8,7 @@ try{
 switch($basepath)
 {
     case 'em':    
-    //$api = new storedd\modules\manager($path,null);
-    $api = new storedd\manager($path,$null);
+    $api = new storedd\modules\manager($path,null);    
     break;
     
     case 'attrib':
