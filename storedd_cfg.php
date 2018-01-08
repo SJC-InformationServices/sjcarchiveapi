@@ -11,7 +11,7 @@ $pass = "15BentonRoad!";
 $rbsetup = \R::setup("mysql:host=$host;dbname=$db;",$user,$pass);
 \R::setAutoResolve( TRUE );        //Recommended as of version 4.2
 \R::fancyDebug( TRUE );
-//\R::useJSONFeatures(TRUE);
+\R::useJSONFeatures(TRUE);
 
 
 

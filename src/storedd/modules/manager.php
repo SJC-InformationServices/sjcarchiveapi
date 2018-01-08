@@ -128,11 +128,9 @@ class manager extends base_api
                 }else{
                     $b = \R::findOne('entdef','`name` = ? ',[$this->verb]);
                 }
-                \R::trash($b);
-				$b=null;
-			break;
+            }
+            \R::trash($b);
         }
-    }
         if(!is_null($b)){
         $r = \R::exportAll($b,TRUE);
         }else{
