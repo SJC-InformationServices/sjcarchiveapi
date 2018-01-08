@@ -6,7 +6,7 @@ $datestr = $date.ToString()
 $name = "archive-"+$datestr+".zip"
 $file = "deploy\"+$name
 git add --all 
-git commit -m "dev deploy-"+$name
+git commit -m "dev deploy"
 git archive -v -o $file --format=zip HEAD
 Write-S3Object -BucketName sjcarchivefiles-dev -File $file
 aws elasticbeanstalk create-application-version --application-name "SJC_Archive" --version-label $name --description sjc_archive_dev --source-bundle S3Bucket="sjcarchivefiles-dev",S3Key=$name
