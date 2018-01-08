@@ -9,6 +9,7 @@ switch($basepath)
 {
     case 'em':    
     $api = new storedd\modules\manager($path,null);    
+    echo $lifeCycle;
     break;
     
     case 'attrib':
