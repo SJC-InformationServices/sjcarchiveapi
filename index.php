@@ -20,6 +20,9 @@ switch($basepath)
     $api = new storedd\modules\entities($path,null);
     break;
     
+    case 'build':
+    include deploy.php;
+    break;
     default:
     header('HTTP/1.0 404 not found');    
     die;

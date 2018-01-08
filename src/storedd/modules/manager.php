@@ -40,7 +40,7 @@ class manager extends base_api
                     $b = \R::findOne('entdef','`name` = ? ',[$this->verb]);
                 }
             }else{
-                   $b = \R::findAll('entdef','`name` <> ?', ['']);
+                   $b = \R::dispenseAll('entdef');
             }
             
             $r = \R::exportAll($b,TRUE);
