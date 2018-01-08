@@ -45,10 +45,10 @@ class manager extends base_api
             
             $r = \R::exportAll($b,TRUE);
             foreach($r as $k=>$v){
-                $r[$k]['children'] = array_column($r[$k]["sharedEntdef"],'name');
-                unset($r[$k]["sharedEntdef"]);
-                $r[$k]['parents'] = array();
-                $r[$k]['attributes'] = array();
+                //$r[$k]['children'] = array_column($r[$k]["sharedEntdef"],'name');
+                //unset($r[$k]["sharedEntdef"]);
+                //$r[$k]['parents'] = array();
+                //$r[$k]['attributes'] = array();
                 /*$r[$k]['children'] = $r[$k]["ownEntdef_entdef"];
                 unset($r[$k]["ownEntdef_entdef"]);
                 /*$r[$k]['children'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`child_entdef` and `entdef_entdef`.`parent_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');
@@ -101,21 +101,15 @@ class manager extends base_api
                 $rec = $this->file;
                 $b->name=$rec['name'];
                 $b->label=strtoupper(preg_replace('/[^a-z0-9]+\Z/i', '',$rec['name']));
-                $options = isset($rec['options'])?\json_encode($rec['options']):null;
+                $options = isset($rec['options'])?json_encode($rec['options']):null;
                 
-                if(isset($rec['parents'])){
-                    $p = [];
-                    foreach($rec['parents'] as $p){
-                        $pb = \R::findOne('entdef','`name` = ? ',[$p]);
-                        array_push($p,$pb);
-                        //$relate = \R::dispense('entdef_entdef');
-                        //$relate->parent_entdef = $pb->id;
-                        //$relate->child_entdef =$id;
-                        $b->ownEntdefList[] = $p;
-                        //\R::store($pb);
-                    }
-                    
-                }
+                if(isset($rec['parents']))
+                    {
+                        $parents = implode(",",$rec['parents']);
+                        $pb = \R::findAll('entdef','`name` in ?',[$parents]);
+                        $b->ownEntdefList[] = $pb;                        
+                    }    
+                
                 if(isset($rec['children'])){
                     /*foreach($rec['children'] as $c){
                         $cb = \R::findOne('entdef','`name` = ? ',[$c]);
