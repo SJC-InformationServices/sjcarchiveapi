@@ -1,4 +1,38 @@
 <?php
+namespace storedd\models{
+
+class entdef extends \RedBean_SimpleModel
+{   
+    public function open() {
+        global $lifeCycle;
+        $lifeCycle .= "called open: ".$this->id;
+        echo $lifeCycle;
+     }
+     public function dispense() {
+         global $lifeCycle;
+         $lifeCycle .= "called dispense() ".$this->bean;
+         echo $lifeCycle;
+     }
+     public function update() {
+         global $lifeCycle;
+         $lifeCycle .= "called update() ".$this->bean;
+         echo $lifeCycle;
+     }
+     public function after_update() {
+         global $lifeCycle;
+         $lifeCycle .= "called after_update() ".$this->bean;
+         echo $lifeCycle;
+     }
+     public function delete() {
+         global $lifeCycle;
+         $lifeCycle .= "called delete() ".$this->bean;
+         echo $lifeCycle;
+     }
+     public function after_delete() {
+         global $lifeCycle;
+         $lifeCycle .= "called after_delete() ".$this->bean;
+         echo $lifeCycle;
+    }}}
 
 namespace storedd\modules{
 
@@ -21,10 +55,10 @@ class manager extends base_api
                    $b = \R::findAll('entdef','`name` <> ?', ['']);
             }
             $r = \R::exportAll($b,TRUE);
-            foreach($r as $k=>$v){
+            /*foreach($r as $k=>$v){
                 $r[$k]['children'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`child_entdef` and `entdef_entdef`.`parent_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');
                 $r[$k]['parents'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`parent_entdef` and `entdef_entdef`.`child_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');
-            }
+            }*/
             return $r;
 			break;
             case 'POST':
