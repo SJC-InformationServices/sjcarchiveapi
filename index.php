@@ -9,7 +9,6 @@ switch($basepath)
 {
     case 'em':    
     $api = new storedd\modules\manager($path,null);    
-    echo $lifeCycle;
     break;
     
     case 'attrib':
@@ -27,6 +26,7 @@ switch($basepath)
     break;
 }
 echo $api->processAPI();
+echo $lifeCycle;
 }catch(Exception $e){
     //TODO: Log Error
     header("HTTP/1.0 500 Internal Server Error - Fails to Process Request"); 
