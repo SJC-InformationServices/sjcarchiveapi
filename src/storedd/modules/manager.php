@@ -4,35 +4,23 @@ namespace storedd\models{
 class entdef extends \RedBean_SimpleModel
 {   
     public function open() {
-        global $lifeCycle;
-        $lifeCycle .= "called open: ".$this->id;
-        
+                
      }
      public function dispense() {
-         global $lifeCycle;
-         $lifeCycle .= "called dispense() ".$this->bean;
-        
+                
      }
      public function update() {
-         global $lifeCycle;
-         $lifeCycle .= "called update() ".$this->bean;
-        
+                
      }
      public function after_update() {
-         global $lifeCycle;
-         $lifeCycle .= "called after_update() ".$this->bean;
-        
+                 
      }
      public function delete() {
-         global $lifeCycle;
-         $lifeCycle .= "called delete() ".$this->bean;
-        
+                 
      }
      public function after_delete() {
-         global $lifeCycle;
-         $lifeCycle .= "called after_delete() ".$this->bean;
-        
-    }}}
+                 
+}}}
 
 namespace storedd\modules{
 
@@ -54,6 +42,7 @@ class manager extends base_api
             }else{
                    $b = \R::findAll('entdef','`name` <> ?', ['']);
             }
+            
             $r = \R::exportAll($b,TRUE);
             /*foreach($r as $k=>$v){
                 $r[$k]['children'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`child_entdef` and `entdef_entdef`.`parent_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');
@@ -107,25 +96,30 @@ class manager extends base_api
                 $b->name=$rec['name'];
                 $b->label=strtoupper(preg_replace('/[^a-z0-9]+\Z/i', '',$rec['name']));
                 $options = isset($rec['options'])?\json_encode($rec['options']):null;
-                $id = \R::store($b);
+                
                 if(isset($rec['parents'])){
+                    $p = [];
                     foreach($rec['parents'] as $p){
                         $pb = \R::findOne('entdef','`name` = ? ',[$p]);
-                        $relate = \R::dispense('entdef_entdef');
-                        $relate->parent_entdef = $pb->id;
-                        $relate->child_entdef =$id;
-                        \R::store($relate);
+                        array_push($p,$pb);
+                        //$relate = \R::dispense('entdef_entdef');
+                        //$relate->parent_entdef = $pb->id;
+                        //$relate->child_entdef =$id;
+                        $b->ownEntdefList[] = $p;
+                        //\R::store($pb);
                     }
+                    
                 }
                 if(isset($rec['children'])){
-                    foreach($rec['children'] as $c){
+                    /*foreach($rec['children'] as $c){
                         $cb = \R::findOne('entdef','`name` = ? ',[$c]);
                         $relate = \R::dispense('entdef_entdef');
                         $relate->parent_entdef =$b->id; 
                         $relate->child_entdef = $cb->id;
                         \R::store($relate);
-                    }
+                    }*/
                 }
+                $id = \R::store($b);
 			break;
 			case 'DELETE':
             if(!is_null($this->verb) && $this->verb != ''){
