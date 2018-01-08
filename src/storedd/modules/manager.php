@@ -47,7 +47,8 @@ class manager extends base_api
             foreach($r as $k=>$v){
                 $r[$k]['children'] = array_column($r[$k]["sharedEntdef"],'name');
                 unset($r[$k]["sharedEntdef"]);
-                
+                $r[$k]['parents'] = array();
+                $r[$k]['attributes'] = array();
                 /*$r[$k]['children'] = $r[$k]["ownEntdef_entdef"];
                 unset($r[$k]["ownEntdef_entdef"]);
                 /*$r[$k]['children'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`child_entdef` and `entdef_entdef`.`parent_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');
