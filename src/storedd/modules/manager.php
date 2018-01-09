@@ -37,7 +37,7 @@ class manager extends base_api
                 if(is_numeric($this->verb)){
                     $b = \R::load('entdef',$this->verb);
                 }else{
-                    $b = \R::findOne('entdef','`name` = ? ',[$this->verb]);
+                    $b = \R::findOne('entdef','ucase(`name`) = ucase(?) ',[$this->verb]);
                 }
             }else{
                    $b = \R::dispenseAll('entdef');
@@ -45,7 +45,11 @@ class manager extends base_api
             
             $r = \R::exportAll($b,TRUE);
             foreach($r as $k=>$v){
-                //$r[$k]['children'] = array_column($r[$k]["sharedEntdef"],'name');
+                $sharedEntDef = $r[$k]["sharedEntdef"];
+                $ownEntDef = $r[$k]["ownEntdef"];
+                $ownAttrib = $r[$k]["ownEntdef_attribdef"];
+                $r[$k]['children'] = array_column($sharedEntDef,'name');
+                $r[$k]['attributes'] = array_column($ownAttrib,"attribdef_id");
                 //unset($r[$k]["sharedEntdef"]);
                 //$r[$k]['parents'] = array();
                 //$r[$k]['attributes'] = array();
