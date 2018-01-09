@@ -6,7 +6,7 @@ require_once "vendor/autoload.php";
 define( 'REDBEAN_MODEL_PREFIX', '\\storedd\\models\\' );
 $host = "sjc-content-archive-dev.cpi3jpipzm32.us-east-1.rds.amazonaws.com";
 //$db = "sjccontentarchive";
-$db = "redbean";
+$db = "sjccontentarchive";
 $user = "sjcArchiveWebApps";
 $pass = "15BentonRoad!";
 $rbsetup = \R::setup("mysql:host=$host;dbname=$db;",$user,$pass);

@@ -21,7 +21,7 @@ switch($basepath)
     break;
     
     case 'build':
-    include "deploy.php";
+    //TODO create deploy script
     break;
     default:
     header('HTTP/1.0 404 not found');    
