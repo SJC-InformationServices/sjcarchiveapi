@@ -21,7 +21,9 @@ foreach($entties as $e){
     $e->ownEntdef[]=[$enta,$entb];
 }
 \R::storeAll($entties);
-
+$b = \R::dispenseAll('entdef');
+$r = \R::exportAll($b,TRUE);
+echo json_encode($r);
 
 
 
