@@ -17,8 +17,8 @@ foreach($entties as $e){
     $e->createdon = date("Y-m-d H:i:s");
     $e->updatedon = date("Y-m-d H:i:s");
     $e->sharedAttribdefList[]  = $attribdef;
-    $e->sharedEntdef[] = $entties;
-    $e->ownEntdef = [$enta,$entb];
+    //$e->sharedEntdef[] = $entties;
+    //$e->ownEntdef = [$enta,$entb];
 }
 \R::storeAll($entties);
 $b = \R::dispenseAll('entdef');
