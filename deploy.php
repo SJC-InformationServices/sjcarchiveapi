@@ -2,7 +2,7 @@
 list($enta,$entb,$entc,$entd,$ente) = \R::dispense('entdef',5);
 
 $attribdef = \R::dispense('attribdef');
-$attribdef->name ="name";
+$attribdef->name ="dog";
 $attribdef->label = strtoupper($attribdef->name);
 $attribdef->type = "text";
 $attribdef->defaultvalue = "NULL";
@@ -18,7 +18,7 @@ foreach($entties as $e){
     $e->updatedon = date("Y-m-d H:i:s");
     $e->sharedAttribdefList[]  = $attribdef;
     $e->sharedEntdef[] = $entties;
-    $e->ownEntdef[]= $entities;
+    $e->ownEntdef = $entities;
 }
 \R::storeAll($entties);
 $b = \R::dispenseAll('entdef');
