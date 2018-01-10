@@ -40,7 +40,7 @@ class manager extends base_api
                     $b = \R::findOne('entdef','ucase(`name`) = ucase(?) ',[$this->verb]);
                 }
             }else{
-                   $b = \R::findAll('entdef','ORDER BY NAME DESC');
+                   $b = \R::findAll('entdef','ORDER BY `name` DESC');
                    //TODO: add filters and additon methods
             }
             
