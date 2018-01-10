@@ -41,23 +41,17 @@ class manager extends base_api
                 }
             }else{
                    $b = \R::dispenseAll('entdef');
+                   //TODO: add filters and additon methods
             }
             
             $r = \R::exportAll($b,TRUE);
             foreach($r as $k=>$v){
-                $sharedEntDef = array_column($r[$k]["sharedEntdef"],"id");
-                $ownEntDef = array_column($r[$k]["ownEntdef_entdef"],"entdef2_id");
-                $ownAttrib = $r[$k]["ownEntdef_attribdef"];
+                $sharedEntDef = isset($r[$k]["sharedEntdef"])?array_column($r[$k]["sharedEntdef"],"id"):[];
+                $ownEntDef = isset($r[$k]["ownEntdef_entdef"])?array_column($r[$k]["ownEntdef_entdef"],"entdef2_id"):[];
+                $ownAttrib = isset($r[$k]["ownEntdef_attribdef"])?array_column($r[$k]["ownEntdef_attribdef"],"attribdef_id"):[];
                 $r[$k]['parents'] = array_diff($sharedEntDef,$ownEntDef);
                 $r[$k]['children'] = $ownEntDef;
-                $r[$k]['attributes'] = array_column($ownAttrib,"attribdef_id");
-                //unset($r[$k]["sharedEntdef"]);
-                //$r[$k]['parents'] = array();
-                //$r[$k]['attributes'] = array();
-                /*$r[$k]['children'] = $r[$k]["ownEntdef_entdef"];
-                unset($r[$k]["ownEntdef_entdef"]);
-                /*$r[$k]['children'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`child_entdef` and `entdef_entdef`.`parent_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');
-                $r[$k]['parents'] = array_column(\R::getAll('select `name` from `entdef`,`entdef_entdef` where `entdef`.`id` = `entdef_entdef`.`parent_entdef` and `entdef_entdef`.`child_entdef` = :pid ',[':pid'=>$r[$k]['id']]),'name');*/
+                $r[$k]['attributes'] = $ownAttrib;
             }
             return $r;
 			break;
