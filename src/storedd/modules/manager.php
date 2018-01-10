@@ -3,11 +3,15 @@ namespace storedd\models{
 
 class entdef extends \RedBean_SimpleModel
 {   
+    protected $parents = [];
+    protected $children = [];
+    protected $attributes = [];
+
     public function open() {
                 
      }
      public function dispense() {
-                
+                array_push($this->attributes,'testing');
      }
      public function update() {
                 
@@ -51,7 +55,7 @@ class manager extends base_api
                 $ownAttrib = isset($r[$k]["ownEntdef_attribdef"])?array_column($r[$k]["ownEntdef_attribdef"],"attribdef_id"):[];
                 $r[$k]['parents'] = array_diff($sharedEntDef,$ownEntDef);
                 $r[$k]['children'] = $ownEntDef;
-                $r[$k]['attributes'] = $ownAttrib;
+                //$r[$k]['attributes'] = $ownAttrib;
             }
             return $r;
 			break;
@@ -131,7 +135,6 @@ class manager extends base_api
             }else{
                 $b=null;
             }
-            
         }
         if(!is_null($b)){
         $r = \R::exportAll($b,TRUE);
