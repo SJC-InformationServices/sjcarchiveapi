@@ -45,10 +45,11 @@ class manager extends base_api
             
             $r = \R::exportAll($b,TRUE);
             foreach($r as $k=>$v){
-                $sharedEntDef = $r[$k]["sharedEntdef"];
-                $ownEntDef = $r[$k]["ownEntdef"];
+                $sharedEntDef = array_column($r[$k]["sharedEntdef"],"id");
+                $ownEntDef = array_column($r[$k]["ownEntdef"],"entdef2_id");
                 $ownAttrib = $r[$k]["ownEntdef_attribdef"];
-                $r[$k]['children'] = array_column($sharedEntDef,'name');
+                $r[$k]['parents'] = array_diff($sharedEntDef,$ownEntDef);
+                $r[$k]['children'] = $ownEntDef;
                 $r[$k]['attributes'] = array_column($ownAttrib,"attribdef_id");
                 //unset($r[$k]["sharedEntdef"]);
                 //$r[$k]['parents'] = array();
