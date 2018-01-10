@@ -8,9 +8,11 @@ class entdef extends \RedBean_SimpleModel
     protected $attributes = [];
 
     public function open() {
+        echo "Open";
         array_push($this->attributes,'testing');
      }
      public function dispense() {
+        echo "Dispense";
                 array_push($this->attributes,'testing');
      }
      public function update() {
