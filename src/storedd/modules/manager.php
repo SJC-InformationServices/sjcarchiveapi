@@ -3,9 +3,9 @@ namespace storedd\models{
 
 class entdef extends \RedBean_SimpleModel
 {   
-    protected $parents = [];
-    protected $children = [];
-    protected $attributes = [];
+    public $parents = [];
+    public $children = [];
+    public $attributes = [];
 
     public function open() {
         echo "Open";
